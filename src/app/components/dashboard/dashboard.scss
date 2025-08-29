@@ -1,0 +1,155 @@
+.dashboard-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.toolbar {
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%) !important;
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+  position: relative;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  .toolbar-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    
+    mat-icon {
+      color: #fbbf24;
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
+  .user-info {
+    margin-right: 16px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+  }
+
+  z-index: 1000;
+}
+
+.dashboard-content {
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 24px;
+  z-index: 1;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.toolbar-spinner {
+  margin-right: 16px;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 1px solid #93c5fd;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  color: #1e40af;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: #3b82f6;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-info {
+    display: none;
+  }
+  
+  .user-section {
+    gap: 8px;
+  }
+}
+
+// Ensure menu appears properly positioned
+.mat-mdc-menu-panel {
+  min-width: 200px !important;
+  background-color: white !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+// User menu trigger button styling
+.user-section button[mat-icon-button] {
+  position: relative;
+  z-index: 1001;
+}
+
+// Ensure dashboard content doesn't interfere with overlays
+.dashboard-content {
+  position: relative;
+  z-index: 1;
+}
+
+// Any floating elements in dashboard
+.floating-element,
+.action-button {
+  z-index: auto !important;
+}
+
+

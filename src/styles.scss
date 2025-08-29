@@ -1,0 +1,1024 @@
+/* You can add global styles to this file, and also import other style files */
+
+// Import Material Icons font (backup to index.html)
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+// Angular Material theme is now handled automatically in v15+
+// No need to import theming manually
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+}
+
+// Mobile-specific global styles
+@media (max-width: 768px) {
+  html, body {
+    font-size: 14px;
+  }
+  
+  // Make Material components touch-friendly on mobile
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      min-height: 44px !important; // Touch-friendly minimum height
+    }
+    
+    .mat-mdc-form-field-infix {
+      min-height: 44px !important;
+      padding: 10px 0 !important;
+    }
+    
+    .mat-mdc-input-element {
+      font-size: 16px !important; // Prevent zoom on iOS
+    }
+    
+    .mat-mdc-form-field-label {
+      font-size: 14px !important;
+    }
+    
+    .mat-mdc-form-field-error {
+      font-size: 12px !important;
+    }
+    
+    .mat-mdc-form-field-subscript-wrapper {
+      font-size: 11px !important;
+    }
+  }
+  
+  .mat-mdc-button {
+    min-height: 44px !important; // Touch-friendly button height
+    font-size: 14px !important;
+  }
+  
+  .mat-mdc-card {
+    margin: 8px !important;
+    padding: 12px !important;
+  }
+  
+  .mat-mdc-card-title {
+    font-size: 16px !important;
+  }
+  
+  .mat-mdc-card-content {
+    font-size: 14px !important;
+  }
+}
+
+// Confirmation Dialog Styles
+.confirmation-dialog-container {
+  z-index: 20000 !important;
+  
+  .mat-mdc-dialog-container {
+    border-radius: 16px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 1) !important;
+    z-index: 20001 !important;
+  }
+  
+  .mat-mdc-dialog-surface {
+    background: rgba(255, 255, 255, 1) !important;
+    border-radius: 16px !important;
+    z-index: 20002 !important;
+  }
+}
+
+.confirmation-dialog-backdrop {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: none !important;
+  z-index: 19999 !important;
+}
+
+// Ensure dialog is above everything
+.cdk-overlay-container {
+  z-index: 20000 !important;
+}
+
+.cdk-overlay-backdrop {
+  z-index: 19999 !important;
+}
+
+.cdk-overlay-pane {
+  z-index: 20001 !important;
+  pointer-events: auto !important;
+}
+
+// Additional button clickability fixes
+.cdk-overlay-pane button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 20010 !important;
+  touch-action: manipulation !important;
+  position: relative !important;
+}
+
+.cdk-overlay-pane .mat-mdc-button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 20010 !important;
+  touch-action: manipulation !important;
+  position: relative !important;
+}
+
+// Force button clickability in confirmation dialog
+.confirmation-dialog-container button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 20010 !important;
+  touch-action: manipulation !important;
+  position: relative !important;
+  display: inline-block !important;
+}
+
+.confirmation-dialog-container .mat-mdc-button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 20010 !important;
+  touch-action: manipulation !important;
+  position: relative !important;
+  display: inline-block !important;
+}
+
+// Additional dialog fixes
+.mat-mdc-dialog-container {
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+.mat-mdc-dialog-surface {
+  pointer-events: auto !important;
+  position: relative !important;
+}
+
+// Ensure buttons are clickable
+.confirmation-dialog-container {
+    button { 
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    position: relative !important;
+    z-index: 20010 !important;
+    touch-action: manipulation !important;
+    user-select: none !important;
+  }
+  
+  .mat-mdc-button {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 20010 !important;
+    touch-action: manipulation !important;
+  }
+  
+  .mat-mdc-raised-button {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 20010 !important;
+    touch-action: manipulation !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+
+// Utility classes
+.full-width {
+  width: 100% !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.mt-1 { margin-top: 8px !important; }
+.mt-2 { margin-top: 16px !important; }
+.mt-3 { margin-top: 24px !important; }
+.mt-4 { margin-top: 32px !important; }
+
+.mb-1 { margin-bottom: 8px !important; }
+.mb-2 { margin-bottom: 16px !important; }
+.mb-3 { margin-bottom: 24px !important; }
+.mb-4 { margin-bottom: 32px !important; }
+
+.ml-1 { margin-left: 8px !important; }
+.ml-2 { margin-left: 16px !important; }
+.ml-3 { margin-left: 24px !important; }
+.ml-4 { margin-left: 32px !important; }
+
+.mr-1 { margin-right: 8px !important; }
+.mr-2 { margin-right: 16px !important; }
+.mr-3 { margin-right: 24px !important; }
+.mr-4 { margin-right: 32px !important; }
+
+.p-1 { padding: 8px !important; }
+.p-2 { padding: 16px !important; }
+.p-3 { padding: 24px !important; }
+.p-4 { padding: 32px !important; }
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+// Loading spinner override
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+// Animation classes
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+// Z-index hierarchy for proper layering
+.mat-toolbar {
+  z-index: 1000 !important;
+  position: relative !important;
+}
+
+// Material Design overlay components should be on top
+.cdk-overlay-container {
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+
+.cdk-overlay-pane {
+  z-index: 10001 !important;
+}
+
+// All Material overlay panels should be above everything
+.mat-mdc-menu-panel,
+.mat-menu-panel,
+.mat-mdc-select-panel,
+.mat-select-panel,
+.mat-mdc-autocomplete-panel,
+.mat-autocomplete-panel,
+.mat-datepicker-popup,
+.mat-mdc-dialog-container,
+.mat-dialog-container,
+.mat-mdc-tooltip,
+.mat-tooltip,
+.mat-mdc-snack-bar-container,
+.mat-snack-bar-container {
+  z-index: 10002 !important;
+  background-color: white !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+// Specific styling for different overlay types
+.mat-mdc-menu-panel,
+.mat-menu-panel,
+.mat-mdc-select-panel,
+.mat-select-panel {
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 4px !important;
+}
+
+// Date picker highlighting only - no size modifications
+
+// Multiple targeting approaches for date highlighting
+// Approach 1: Standard Material classes
+.mat-calendar-body-today .mat-calendar-body-cell-content {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3) !important;
+  border: 2px solid #4f46e5 !important;
+}
+
+.mat-calendar-body-selected .mat-calendar-body-cell-content {
+  background-color: #7c3aed !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3) !important;
+  border: 2px solid #7c3aed !important;
+}
+
+// Approach 2: With overlay container
+.cdk-overlay-container .mat-calendar-body-today .mat-calendar-body-cell-content {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3) !important;
+  border: 2px solid #4f46e5 !important;
+}
+
+.cdk-overlay-container .mat-calendar-body-selected .mat-calendar-body-cell-content {
+  background-color: #7c3aed !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3) !important;
+  border: 2px solid #7c3aed !important;
+}
+
+// Approach 3: Ultra-specific with full path
+html body .cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-content .mat-calendar-table .mat-calendar-body .mat-calendar-body-cell.mat-calendar-body-today .mat-calendar-body-cell-content {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3) !important;
+  border: 2px solid #4f46e5 !important;
+}
+
+html body .cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-content .mat-calendar-table .mat-calendar-body .mat-calendar-body-cell.mat-calendar-body-selected .mat-calendar-body-cell-content {
+  background-color: #7c3aed !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3) !important;
+  border: 2px solid #7c3aed !important;
+}
+
+// Approach 4: Alternative class names that might be used
+.mat-calendar-body-cell.today .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-label*="today"] .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-label*="Today"] .mat-calendar-body-cell-content {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3) !important;
+  border: 2px solid #4f46e5 !important;
+}
+
+// Disabled dates
+.mat-calendar-body-disabled .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  color: #d1d5db !important;
+  cursor: not-allowed !important;
+  background-color: transparent !important;
+}
+
+// Dialog containers should be highest
+.mat-mdc-dialog-container,
+.mat-dialog-container {
+  z-index: 10004 !important;
+}
+
+// Tooltip should be very high
+.mat-mdc-tooltip,
+.mat-tooltip {
+  z-index: 10005 !important;
+}
+
+// Snackbar should be highest of all with custom styling
+.mat-mdc-snack-bar-container,
+.mat-snack-bar-container {
+  z-index: 10006 !important;
+  
+  // Force override Material Design defaults
+  background: transparent !important;
+  
+  &.custom-snackbar {
+    .mat-mdc-snack-bar-surface,
+    .mat-snack-bar-surface {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+      backdrop-filter: blur(20px) !important;
+      border-radius: 16px !important;
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4) !important;
+      border: 2px solid rgba(255, 255, 255, 0.3) !important;
+      padding: 16px 24px !important;
+      min-width: 350px !important;
+      max-width: 600px !important;
+    }
+    
+    .mat-mdc-snack-bar-label,
+    .mat-snack-bar-label {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+      font-size: 15px !important;
+      line-height: 1.5 !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+      letter-spacing: 0.3px !important;
+    }
+    
+    .mat-mdc-snack-bar-actions,
+    .mat-snack-bar-actions {
+      .mat-mdc-button,
+      .mat-button {
+        background: rgba(255, 255, 255, 0.25) !important;
+        color: #ffffff !important;
+        border-radius: 10px !important;
+        font-weight: 700 !important;
+        font-size: 13px !important;
+        backdrop-filter: blur(10px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        transition: all 0.3s ease !important;
+        padding: 8px 16px !important;
+        min-width: 80px !important;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.4) !important;
+          transform: translateY(-2px) !important;
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
+          border-color: rgba(255, 255, 255, 0.6) !important;
+        }
+        
+        .mat-mdc-button-touch-target,
+        .mat-button-touch-target {
+          height: 40px !important;
+        }
+      }
+    }
+  }
+  
+  // Success snackbar variant - Vibrant Green
+  &.success-snackbar {
+    .mat-mdc-snack-bar-surface,
+    .mat-snack-bar-surface {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+      box-shadow: 0 8px 32px rgba(34, 197, 94, 0.4) !important;
+      border-color: rgba(34, 197, 94, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-label,
+    .mat-snack-bar-label {
+      color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-actions .mat-mdc-button,
+    .mat-snack-bar-actions .mat-button {
+      background: rgba(255, 255, 255, 0.3) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.5) !important;
+        border-color: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
+  }
+  
+  // Error snackbar variant - Vibrant Red
+  &.error-snackbar {
+    .mat-mdc-snack-bar-surface,
+    .mat-snack-bar-surface {
+      background: linear-gradient(135deg, #ff4444 0%, #e53e3e 100%) !important;
+      box-shadow: 0 8px 32px rgba(255, 68, 68, 0.4) !important;
+      border-color: rgba(255, 68, 68, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-label,
+    .mat-snack-bar-label {
+      color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-actions .mat-mdc-button,
+    .mat-snack-bar-actions .mat-button {
+      background: rgba(255, 255, 255, 0.3) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.5) !important;
+        border-color: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
+  }
+  
+  // Warning snackbar variant - Vibrant Orange
+  &.warning-snackbar {
+    .mat-mdc-snack-bar-surface,
+    .mat-snack-bar-surface {
+      background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%) !important;
+      box-shadow: 0 8px 32px rgba(255, 140, 0, 0.4) !important;
+      border-color: rgba(255, 140, 0, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-label,
+    .mat-snack-bar-label {
+      color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-actions .mat-mdc-button,
+    .mat-snack-bar-actions .mat-button {
+      background: rgba(255, 255, 255, 0.3) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.5) !important;
+        border-color: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
+  }
+  
+  // Info snackbar variant - Vibrant Blue
+  &.info-snackbar {
+    .mat-mdc-snack-bar-surface,
+    .mat-snack-bar-surface {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4) !important;
+      border-color: rgba(59, 130, 246, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-label,
+    .mat-snack-bar-label {
+      color: #ffffff !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .mat-mdc-snack-bar-actions .mat-mdc-button,
+    .mat-snack-bar-actions .mat-button {
+      background: rgba(255, 255, 255, 0.3) !important;
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.5) !important;
+        border-color: rgba(255, 255, 255, 0.7) !important;
+      }
+    }
+  }
+}
+
+// Menu backdrop should cover content but be below panels
+.cdk-overlay-backdrop {
+  z-index: 9999 !important;
+}
+
+// Backdrop for dialogs should be higher
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  background-color: rgba(0, 0, 0, 0.32) !important;
+  z-index: 9999 !important;
+}
+
+// Menu items styling
+.mat-mdc-menu-item,
+.mat-menu-item,
+.mat-mdc-option,
+.mat-option {
+  background-color: white !important;
+}
+
+.mat-mdc-menu-item:hover,
+.mat-menu-item:hover,
+.mat-mdc-option:hover,
+.mat-option:hover {
+  background-color: #f5f5f5 !important;
+}
+
+// Select dropdown trigger styling
+.mat-mdc-select-trigger,
+.mat-select-trigger {
+  background-color: transparent !important;
+}
+
+// Ensure regular content stays below overlays
+.task-list-container,
+.dashboard-content {
+  position: relative;
+  z-index: 1;
+}
+
+// Reset any conflicting z-index from Material components
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-icon-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab,
+.mat-mdc-form-field,
+.mat-form-field,
+.mat-mdc-select,
+.mat-select,
+.mat-mdc-input-element,
+.mat-input-element,
+.mat-mdc-card,
+.mat-card {
+  z-index: auto !important;
+}
+
+.mat-mdc-button .mdc-button__label,
+.mat-mdc-raised-button .mdc-button__label,
+.mat-mdc-unelevated-button .mdc-button__label {
+  z-index: auto !important;
+  position: static !important;
+}
+
+// Ensure form field elements don't interfere
+.mat-mdc-form-field-flex,
+.mat-form-field-flex {
+  z-index: auto !important;
+}
+
+// Reset z-index for task components specifically
+.task-item,
+.task-card,
+.add-task-button,
+.task-actions {
+  z-index: auto !important;
+  position: relative !important;
+}
+
+// Ensure floating action buttons don't interfere
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+  z-index: 500 !important;
+  
+  &.mat-mdc-fab-opened {
+    z-index: 499 !important;
+  }
+}
+
+// Special handling for date picker triggers
+.mat-datepicker-toggle {
+  z-index: auto !important;
+}
+
+.mat-datepicker-content .mat-calendar {
+  width: 283px !important;
+}
+
+// Nuclear approach - target every possible selector for today's date
+.mat-calendar-body-today .mat-calendar-body-cell-content,
+.mat-calendar-body-cell.today .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-label*="today"] .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-label*="Today"] .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-current="date"] .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[data-today="true"] .mat-calendar-body-cell-content,
+.mat-datepicker-content .mat-calendar .mat-calendar-body-today .mat-calendar-body-cell-content,
+.mat-datepicker-popup .mat-calendar .mat-calendar-body-today .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-datepicker-content .mat-calendar .mat-calendar-body-today .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-body-today .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-calendar .mat-calendar-body-today .mat-calendar-body-cell-content,
+html body .cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-content .mat-calendar-table .mat-calendar-body .mat-calendar-body-cell.mat-calendar-body-today .mat-calendar-body-cell-content {
+  background-color: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  line-height: 1 !important;
+  position: relative !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+// Nuclear approach - target every possible selector for selected date
+.mat-calendar-body-selected .mat-calendar-body-cell-content,
+.mat-calendar-body-cell.selected .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[aria-selected="true"] .mat-calendar-body-cell-content,
+.mat-calendar-body-cell[data-selected="true"] .mat-calendar-body-cell-content,
+.mat-datepicker-content .mat-calendar .mat-calendar-body-selected .mat-calendar-body-cell-content,
+.mat-datepicker-popup .mat-calendar .mat-calendar-body-selected .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-datepicker-content .mat-calendar .mat-calendar-body-selected .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-body-selected .mat-calendar-body-cell-content,
+.cdk-overlay-container .mat-calendar .mat-calendar-body-selected .mat-calendar-body-cell-content,
+html body .cdk-overlay-container .mat-datepicker-popup .mat-calendar .mat-calendar-content .mat-calendar-table .mat-calendar-body .mat-calendar-body-cell.mat-calendar-body-selected .mat-calendar-body-cell-content {
+  background-color: #7c3aed !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+  line-height: 1 !important;
+  position: relative !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+// Ensure autocomplete panels work correctly
+.mat-mdc-autocomplete-panel {
+  max-height: 256px !important;
+  background-color: white !important;
+  border-radius: 4px !important;
+}
+
+// Fix for any lingering overlay positioning issues
+.cdk-overlay-connected-position-bounding-box {
+  z-index: 10000 !important;
+}
+
+// Force override all Material Design snackbar defaults
+.mat-mdc-snack-bar-container.custom-snackbar,
+.mat-snack-bar-container.custom-snackbar {
+  background: transparent !important;
+  
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #ffffff !important;
+    
+    * {
+      color: #ffffff !important;
+    }
+  }
+  
+  .mat-mdc-snack-bar-label,
+  .mat-snack-bar-label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+  }
+  
+  .mat-mdc-snack-bar-actions,
+  .mat-snack-bar-actions {
+    .mat-mdc-button,
+    .mat-button {
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.25) !important;
+    }
+  }
+}
+
+// Success variant
+.mat-mdc-snack-bar-container.custom-snackbar.success-snackbar,
+.mat-snack-bar-container.custom-snackbar.success-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+  }
+}
+
+// Error variant
+.mat-mdc-snack-bar-container.custom-snackbar.error-snackbar,
+.mat-snack-bar-container.custom-snackbar.error-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #ff4444 0%, #e53e3e 100%) !important;
+  }
+}
+
+// Warning variant
+.mat-mdc-snack-bar-container.custom-snackbar.warning-snackbar,
+.mat-snack-bar-container.custom-snackbar.warning-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%) !important;
+  }
+}
+
+// Info variant
+.mat-mdc-snack-bar-container.custom-snackbar.info-snackbar,
+.mat-snack-bar-container.custom-snackbar.info-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  }
+}
+
+// Override Material Design CSS variables globally
+:root {
+  --mdc-snackbar-container-color: transparent !important;
+  --mdc-snackbar-supporting-text-color: #ffffff !important;
+  --mdc-snackbar-action-text-color: #ffffff !important;
+}
+
+// Nuclear option - force override with maximum specificity
+body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar,
+body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar {
+  background: transparent !important;
+  
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
+    color: #ffffff !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 16px 24px !important;
+    min-width: 350px !important;
+    max-width: 600px !important;
+    
+    * {
+      color: #ffffff !important;
+    }
+  }
+  
+  .mat-mdc-snack-bar-label,
+  .mat-snack-bar-label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .mat-mdc-snack-bar-actions,
+  .mat-snack-bar-actions {
+    .mat-mdc-button,
+    .mat-button {
+      color: #ffffff !important;
+      background: rgba(255, 255, 255, 0.25) !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      border: 2px solid rgba(255, 255, 255, 0.4) !important;
+    }
+  }
+}
+
+// Ultra-specific selectors to force color changes
+html body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.success-snackbar .mat-mdc-snack-bar-surface,
+html body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.success-snackbar .mat-snack-bar-surface {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+  box-shadow: 0 8px 32px rgba(34, 197, 94, 0.4) !important;
+  border-color: rgba(34, 197, 94, 0.4) !important;
+}
+
+html body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.error-snackbar .mat-mdc-snack-bar-surface,
+html body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.error-snackbar .mat-snack-bar-surface {
+  background: linear-gradient(135deg, #ff4444 0%, #e53e3e 100%) !important;
+  box-shadow: 0 8px 32px rgba(255, 68, 68, 0.4) !important;
+  border-color: rgba(255, 68, 68, 0.4) !important;
+}
+
+html body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.warning-snackbar .mat-mdc-snack-bar-surface,
+html body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.warning-snackbar .mat-snack-bar-surface {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%) !important;
+  box-shadow: 0 8px 32px rgba(255, 140, 0, 0.4) !important;
+  border-color: rgba(255, 140, 0, 0.4) !important;
+}
+
+html body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.info-snackbar .mat-mdc-snack-bar-surface,
+html body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.info-snackbar .mat-snack-bar-surface {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4) !important;
+  border-color: rgba(59, 130, 246, 0.4) !important;
+}
+
+/* Custom snackbar overlay styling */
+.cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar-overlay {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: auto !important;
+  max-width: none !important;
+}
+
+.cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar-overlay .mat-mdc-snack-bar-surface {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Form validation error styling */
+.mat-mdc-form-field .mat-mdc-form-field-error,
+.mat-mdc-form-field .mat-mdc-form-field-error-wrapper,
+.mat-mdc-form-field .mat-mdc-form-field-error .mat-mdc-form-field-error-text,
+.mat-mdc-form-field .mat-mdc-form-field-error .mat-mdc-form-field-error-text * {
+  color: #f44336 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Material Design form field error styling */
+.mat-mdc-form-field-error {
+  color: #f44336 !important;
+}
+
+.mat-mdc-form-field-error-text {
+  color: #f44336 !important;
+}
+
+/* Ensure mat-error elements are red */
+mat-error {
+  color: #f44336 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* Form field outline color when invalid */
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-form-field-outline {
+  color: #f44336 !important;
+}
+
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-form-field-outline-thick {
+  color: #f44336 !important;
+}
+
+/* Input border color when invalid */
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-input-element {
+  border-color: #f44336 !important;
+}
+
+/* Select border color when invalid */
+.mat-mdc-form-field.mat-form-field-invalid .mat-mdc-select-value {
+  color: #f44336 !important;
+}
+
+// Success variant with maximum specificity
+body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.success-snackbar,
+body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.success-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important;
+    box-shadow: 0 8px 32px rgba(34, 197, 94, 0.4) !important;
+    border-color: rgba(34, 197, 94, 0.4) !important;
+  }
+}
+
+// Error variant with maximum specificity
+body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.error-snackbar,
+body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.error-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #ff4444 0%, #e53e3e 100%) !important;
+    box-shadow: 0 8px 32px rgba(255, 68, 68, 0.4) !important;
+    border-color: rgba(255, 68, 68, 0.4) !important;
+  }
+}
+
+// Warning variant with maximum specificity
+body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.warning-snackbar,
+body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.warning-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b35 100%) !important;
+    box-shadow: 0 8px 32px rgba(255, 140, 0, 0.4) !important;
+    border-color: rgba(255, 140, 0, 0.4) !important;
+  }
+}
+
+// Info variant with maximum specificity
+body .cdk-overlay-container .mat-mdc-snack-bar-container.custom-snackbar.info-snackbar,
+body .cdk-overlay-container .mat-snack-bar-container.custom-snackbar.info-snackbar {
+  .mat-mdc-snack-bar-surface,
+  .mat-snack-bar-surface {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%) !important;
+    box-shadow: 0 8px 32px rgba(59, 130, 246, 0.4) !important;
+    border-color: rgba(59, 130, 246, 0.4) !important;
+  }
+}
+

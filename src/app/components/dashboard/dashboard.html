@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="toolbar-title">
+      <mat-icon>task_alt</mat-icon>
+      Task Manager
+    </span>
+    
+    <span class="spacer"></span>
+    
+    <!-- Loading indicator -->
+    <mat-spinner 
+      *ngIf="isLoading()" 
+      diameter="24" 
+      class="toolbar-spinner">
+    </mat-spinner>
+    
+    <!-- User info with modern display -->
+    <div class="user-section" *ngIf="currentUser()">
+    
+      
+      
+      <!-- User menu -->
+      <button 
+        mat-icon-button 
+        [matMenuTriggerFor]="userMenu" 
+        >
+        <div class="user-avatar" [matTooltip]="userDisplayName()">
+          {{ userInitials() }}
+        </div>
+      </button>
+      
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="refreshProfile()">
+          <mat-icon>refresh</mat-icon>
+          Refresh Profile
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </div>
+    
+    <!-- Fallback logout button -->
+    <button 
+      *ngIf="!currentUser()" 
+      mat-icon-button 
+      (click)="logout()" 
+      matTooltip="Logout">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="dashboard-content">
+    <!-- Status indicator -->
+    <div class="status-bar" *ngIf="authStatus() !== 'authenticated'">
+      <mat-icon>info</mat-icon>
+      <span>Authentication Status: {{ authStatus() }}</span>
+    </div>
+    
+    <app-task-list></app-task-list>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="task-form-container" (click)="onCancel()">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="task-form" (click)="$event.stopPropagation()">
+    <h2>{{ isEditing() ? 'Edit Task' : 'Create New Task' }}</h2>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter task title">
+      <mat-icon matSuffix>title</mat-icon>
+      <mat-error *ngIf="isFieldInvalid('title')">
+        {{ getErrorMessage('title') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea 
+        matInput 
+        formControlName="description" 
+        rows="1" 
+        placeholder="Enter task description">
+      </textarea>
+      <mat-icon matSuffix>description</mat-icon>
+      <mat-error *ngIf="isFieldInvalid('description')">
+        {{ getErrorMessage('description') }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option [value]="TaskStatus.PENDING">
+            <mat-icon>schedule</mat-icon>
+            Pending
+          </mat-option>
+          <mat-option [value]="TaskStatus.IN_PROGRESS">
+            <mat-icon>play_arrow</mat-icon>
+            In Progress
+          </mat-option>
+          <mat-option [value]="TaskStatus.COMPLETED">
+            <mat-icon>check_circle</mat-icon>
+            Completed
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option [value]="TaskPriority.LOW">
+            <mat-icon>low_priority</mat-icon>
+            Low
+          </mat-option>
+          <mat-option [value]="TaskPriority.MEDIUM">
+            <mat-icon>remove</mat-icon>
+            Medium
+          </mat-option>
+          <mat-option [value]="TaskPriority.HIGH">
+            <mat-icon>priority_high</mat-icon>
+            High
+          </mat-option>
+          <mat-option [value]="TaskPriority.URGENT">
+            <mat-icon>warning</mat-icon>
+            Urgent
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dueDate">
+      <mat-hint>Optional due date for the task</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button 
+        mat-button 
+        type="button" 
+        (click)="onCancel()"
+        [disabled]="isSubmitting()">
+        Cancel
+      </button>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit" 
+        [disabled]="taskForm.invalid || isSubmitting()">
+        <mat-icon *ngIf="isSubmitting()">hourglass_empty</mat-icon>
+        <span *ngIf="!isSubmitting()">
+          {{ isEditing() ? 'Update Task' : 'Create Task' }}
+        </span>
+        <span *ngIf="isSubmitting()">
+          {{ isEditing() ? 'Updating...' : 'Creating...' }}
+        </span>
+      </button>
+    </div>
+  </form>
+</div>

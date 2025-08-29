@@ -1,0 +1,80 @@
+<mat-card class="task-card" 
+  [class.priority-urgent]="task.priority === 'urgent'"
+  [class.priority-high]="task.priority === 'high'"
+  [class.priority-medium]="task.priority === 'medium'"
+  [class.priority-low]="task.priority === 'low'"
+  [class.status-pending]="task.status === 'pending'"
+  [class.status-in-progress]="task.status === 'in-progress'"
+  [class.status-completed]="task.status === 'completed'">
+  <mat-card-header>
+    <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
+    <mat-card-subtitle class="task-subtitle">
+      <mat-chip 
+        class="status-chip"
+        [class.status-pending]="task.status === 'pending'"
+        [class.status-in-progress]="task.status === 'in-progress'"
+        [class.status-completed]="task.status === 'completed'">
+        {{ task.status | titlecase }}
+      </mat-chip>
+      <mat-chip 
+        class="priority-chip"
+        [class.priority-urgent]="task.priority === 'urgent'"
+        [class.priority-high]="task.priority === 'high'"
+        [class.priority-medium]="task.priority === 'medium'"
+        [class.priority-low]="task.priority === 'low'">
+        {{ task.priority | titlecase }}
+      </mat-chip>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="task-description">{{ task.description }}</p>
+    
+    <div class="task-tags" *ngIf="task.tags.length > 0">
+      <mat-chip *ngFor="let tag of task.tags" class="tag-chip">
+        {{ tag }}
+      </mat-chip>
+    </div>
+    
+    <div class="task-dates">
+      <small class="created-date">
+        Created: {{ task.createdAt | date:'short' }}
+      </small>
+      <small class="due-date" *ngIf="task.dueDate">
+        Due: {{ task.dueDate | date:'short' }}
+      </small>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="showActions" class="task-actions">
+    <button mat-button (click)="onEdit()" class="edit-btn">
+      <mat-icon>edit</mat-icon>
+      Edit
+    </button>
+    
+    <button mat-button [matMenuTriggerFor]="statusMenu" class="status-btn">
+      <mat-icon>swap_horiz</mat-icon>
+      Status
+    </button>
+    
+    <button mat-button (click)="onDelete()" class="delete-btn">
+      <mat-icon>delete</mat-icon>
+      Delete
+    </button>
+  </mat-card-actions>
+
+  <mat-menu #statusMenu="matMenu">
+    <button mat-menu-item (click)="onStatusChange(TaskStatus.PENDING)">
+      <mat-icon>schedule</mat-icon>
+      Pending
+    </button>
+    <button mat-menu-item (click)="onStatusChange(TaskStatus.IN_PROGRESS)">
+      <mat-icon>play_arrow</mat-icon>
+      In Progress
+    </button>
+    <button mat-menu-item (click)="onStatusChange(TaskStatus.COMPLETED)">
+      <mat-icon>check_circle</mat-icon>
+      Completed
+    </button>
+  </mat-menu>
+</mat-card>

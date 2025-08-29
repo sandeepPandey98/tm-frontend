@@ -1,0 +1,139 @@
+<div class="task-list-container">
+  <!-- Header with controls -->
+  <div class="task-list-header">
+    <h1>My Tasks</h1>
+    <button mat-raised-button color="primary" (click)="openTaskForm()">
+      <mat-icon>add</mat-icon>
+      Add Task
+    </button>
+  </div>
+
+  <!-- Search and Filters with Reactive Forms -->
+  <form [formGroup]="filterForm" class="task-filters">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search tasks</mat-label>
+      <input matInput formControlName="search" placeholder="Search by title, description, or tags" 
+             (keyup.enter)="onSearchClick()">
+      <button mat-icon-button matSuffix (click)="onSearchClick()" 
+              [disabled]="isLoading()" 
+              aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Status</mat-label>
+      <mat-select formControlName="statusFilter" multiple>
+        <mat-option [value]="TaskStatus.PENDING">Pending</mat-option>
+        <mat-option [value]="TaskStatus.IN_PROGRESS">In Progress</mat-option>
+        <mat-option [value]="TaskStatus.COMPLETED">Completed</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Filter by Priority</mat-label>
+      <mat-select formControlName="priorityFilter" multiple>
+        <mat-option [value]="TaskPriority.LOW">Low</mat-option>
+        <mat-option [value]="TaskPriority.MEDIUM">Medium</mat-option>
+        <mat-option [value]="TaskPriority.HIGH">High</mat-option>
+        <mat-option [value]="TaskPriority.URGENT">Urgent</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-button (click)="clearFilters()" *ngIf="hasActiveFilters()">
+      <mat-icon>clear</mat-icon>
+      Clear Filters
+    </button>
+  </form>
+
+  <!-- Task Stats and Pagination Info -->
+  <div class="task-stats">
+    <div class="stats-chips">
+      <mat-chip-set>
+        <mat-chip [color]="'warn'" selected>
+          Pending: {{ pendingCount() }}
+        </mat-chip>
+        <mat-chip [color]="'accent'" selected>
+          In Progress: {{ inProgressCount() }}
+        </mat-chip>
+        <mat-chip [color]="'primary'" selected>
+          Completed: {{ completedCount() }}
+        </mat-chip>
+      </mat-chip-set>
+    </div>
+    
+    <div class="pagination-info" *ngIf="paginationInfo()">
+      <span class="total-items">
+        Total: {{ paginationInfo()!.total }} tasks
+        <span *ngIf="filterForm.get('search')?.value" class="search-indicator">
+          (filtered by: "{{ filterForm.get('search')?.value }}")
+        </span>
+      </span>
+      <span class="page-info">
+        Page {{ paginationInfo()!.current }} of {{ paginationInfo()!.pages }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-container" *ngIf="isLoading()">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Loading tasks...</p>
+  </div>
+
+  <!-- Task List using Signals -->
+  <div class="tasks-grid" *ngIf="!isLoading()">
+    <app-task-item 
+      *ngFor="let task of displayedTasks()" 
+      [task]="task"
+      (taskUpdated)="onTaskUpdated($event)"
+      (taskDeleted)="onTaskDeleted($event)"
+      (editTask)="openTaskForm($event)">
+    </app-task-item>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="displayedTasks().length === 0">
+      <mat-icon class="empty-icon">assignment</mat-icon>
+      <h3>No tasks found</h3>
+      <p *ngIf="!hasActiveFilters()">
+        You don't have any tasks yet. Create your first task!
+      </p>
+      <p *ngIf="hasActiveFilters()">
+        No tasks match your current filters. Try adjusting your search criteria.
+      </p>
+      <button mat-raised-button color="primary" (click)="openTaskForm()">
+        <mat-icon>add</mat-icon>
+        Create Task
+      </button>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container" *ngIf="!isLoading() && displayedTasks().length > 0">
+    <mat-paginator
+      [length]="totalItems()"
+      [pageSize]="pageSize()"
+      [pageIndex]="currentPage() - 1"
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      [showFirstLastButtons]="true"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+
+  <!-- Task Form Modal using Signals -->
+  <app-task-form 
+    *ngIf="showTaskForm()"
+    [task]="editingTask()"
+    (taskSaved)="onTaskSaved($event)"
+    (cancelled)="closeTaskForm()">
+  </app-task-form>
+
+  <!-- Confirmation Modal -->
+  <app-confirmation-modal 
+    *ngIf="confirmationModalService.showModal()"
+    [data]="confirmationModalService.modalData()!"
+    (confirmed)="confirmationModalService.onConfirmed()"
+    (cancelled)="confirmationModalService.onCancelled()">
+  </app-confirmation-modal>
+</div>
