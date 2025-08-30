@@ -25,18 +25,7 @@ COPY --from=build /app/dist/task-management-app/browser /usr/share/nginx/html
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Use existing nginx user (already exists in nginx:alpine)
-
-# Change ownership
-RUN chown -R nginx:nginx /usr/share/nginx/html
-RUN chown -R nginx:nginx /var/cache/nginx
-RUN chown -R nginx:nginx /var/log/nginx
-RUN chown -R nginx:nginx /etc/nginx/conf.d
-RUN touch /var/run/nginx.pid
-RUN chown -R nginx:nginx /var/run/nginx.pid
-
-# Switch to non-root user
-USER nginx
+# Nginx will run as root to bind to port 80
 
 # Expose port
 EXPOSE 80
