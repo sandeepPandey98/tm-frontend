@@ -23,3 +23,4 @@ The application will be available at `http://localhost:4200`
 ```bash
 ng build --prod
 ```# Force trigger
+# Force new deployment
