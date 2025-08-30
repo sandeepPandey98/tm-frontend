@@ -22,4 +22,4 @@ The application will be available at `http://localhost:4200`
 ## Build for Production
 ```bash
 ng build --prod
-```
+```# Force trigger
