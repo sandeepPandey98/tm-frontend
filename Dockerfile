@@ -25,9 +25,7 @@ COPY --from=build /app/dist/task-management-app/browser /usr/share/nginx/html
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Create non-root user
-RUN addgroup -g 1001 -S nginx
-RUN adduser -S nginx -u 1001
+# Use existing nginx user (already exists in nginx:alpine)
 
 # Change ownership
 RUN chown -R nginx:nginx /usr/share/nginx/html
