@@ -11,6 +11,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../../../models/task.model';
+import { UI_LABELS, TASK_STATUS_OPTIONS, TASK_PRIORITY_OPTIONS, VALIDATION_MESSAGES } from '../../../constants/app.constants';
 
 @Component({
   selector: 'app-task-form',
@@ -52,6 +53,12 @@ export class TaskForm implements OnInit {
   // Enum references for template
   readonly TaskStatus = TaskStatus;
   readonly TaskPriority = TaskPriority;
+  
+  // Constants for template
+  readonly UI_LABELS = UI_LABELS;
+  readonly TASK_STATUS_OPTIONS = TASK_STATUS_OPTIONS;
+  readonly TASK_PRIORITY_OPTIONS = TASK_PRIORITY_OPTIONS;
+  readonly VALIDATION_MESSAGES = VALIDATION_MESSAGES;
 
   constructor() {
     // Initialize form
@@ -125,12 +132,12 @@ export class TaskForm implements OnInit {
     const control = this.taskForm.get(fieldName);
     
     if (control?.hasError('required')) {
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+      return VALIDATION_MESSAGES.REQUIRED;
     }
     
     if (control?.hasError('minlength')) {
       const minLength = control.errors?.['minlength']?.requiredLength;
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be at least ${minLength} characters long`;
+      return VALIDATION_MESSAGES.MIN_LENGTH.replace('{0}', minLength.toString());
     }
     
     return '';

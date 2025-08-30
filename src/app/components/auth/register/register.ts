@@ -14,6 +14,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { RegisterRequest } from '../../../models/user.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UI_LABELS, VALIDATION_MESSAGES } from '../../../constants/app.constants';
 
 // Custom validator for password confirmation
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -50,6 +51,10 @@ export class Register implements OnInit, OnDestroy {
   hideConfirmPassword = true;
   returnUrl: string = '/dashboard';
   private destroy$ = new Subject<void>();
+  
+  // Constants for template
+  readonly UI_LABELS = UI_LABELS;
+  readonly VALIDATION_MESSAGES = VALIDATION_MESSAGES;
 
   constructor(
     private fb: FormBuilder,
@@ -113,25 +118,25 @@ export class Register implements OnInit, OnDestroy {
     const control = this.registerForm.get(fieldName);
     
     if (control?.hasError('required')) {
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+      return VALIDATION_MESSAGES.REQUIRED;
     }
     
     if (control?.hasError('email')) {
-      return 'Please enter a valid email address';
+      return VALIDATION_MESSAGES.EMAIL_INVALID;
     }
     
     if (control?.hasError('minlength')) {
       const minLength = control.errors?.['minlength']?.requiredLength;
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be at least ${minLength} characters long`;
+      return VALIDATION_MESSAGES.MIN_LENGTH.replace('{0}', minLength.toString());
     }
     
     if (control?.hasError('maxlength')) {
       const maxLength = control.errors?.['maxlength']?.requiredLength;
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be no more than ${maxLength} characters long`;
+      return VALIDATION_MESSAGES.MAX_LENGTH.replace('{0}', maxLength.toString());
     }
     
     if (fieldName === 'confirmPassword' && this.registerForm.hasError('passwordMismatch')) {
-      return 'Passwords do not match';
+      return VALIDATION_MESSAGES.PASSWORD_MISMATCH;
     }
     
     return '';

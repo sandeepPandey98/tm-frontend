@@ -14,6 +14,7 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { LoginRequest } from '../../../models/user.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { UI_LABELS, VALIDATION_MESSAGES } from '../../../constants/app.constants';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,10 @@ export class Login implements OnInit, OnDestroy {
   hidePassword = true;
   returnUrl: string = '/dashboard';
   private destroy$ = new Subject<void>();
+  
+  // Constants for template
+  readonly UI_LABELS = UI_LABELS;
+  readonly VALIDATION_MESSAGES = VALIDATION_MESSAGES;
 
   constructor(
     private fb: FormBuilder,
@@ -98,15 +103,16 @@ export class Login implements OnInit, OnDestroy {
     const control = this.loginForm.get(fieldName);
     
     if (control?.hasError('required')) {
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
+      return VALIDATION_MESSAGES.REQUIRED;
     }
     
     if (control?.hasError('email')) {
-      return 'Please enter a valid email address';
+      return VALIDATION_MESSAGES.EMAIL_INVALID;
     }
     
     if (control?.hasError('minlength')) {
-      return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} must be at least 6 characters long`;
+      const minLength = control.errors?.['minlength']?.requiredLength;
+      return VALIDATION_MESSAGES.MIN_LENGTH.replace('{0}', minLength.toString());
     }
     
     return '';

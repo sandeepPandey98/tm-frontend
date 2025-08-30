@@ -21,6 +21,7 @@ import { TaskItem } from '../task-item/task-item';
 import { TaskForm } from '../task-form/task-form';
 import { ConfirmationModalComponent } from '../../shared/confirmation-modal/confirmation-modal.component';
 import { ConfirmationModalService } from '../../../services/confirmation-modal.service';
+import { UI_LABELS, TASK_STATUS_OPTIONS, TASK_PRIORITY_OPTIONS, PAGINATION_OPTIONS } from '../../../constants/app.constants';
 
 @Component({
   selector: 'app-task-list',
@@ -110,6 +111,12 @@ export class TaskList implements OnInit {
   // Enum references for template
   readonly TaskStatus = TaskStatus;
   readonly TaskPriority = TaskPriority;
+  
+  // Constants for template
+  readonly UI_LABELS = UI_LABELS;
+  readonly TASK_STATUS_OPTIONS = TASK_STATUS_OPTIONS;
+  readonly TASK_PRIORITY_OPTIONS = TASK_PRIORITY_OPTIONS;
+  readonly PAGINATION_OPTIONS = PAGINATION_OPTIONS;
 
   // Create destroyRef for manual cleanup when needed
   private destroyRef = inject(DestroyRef);
