@@ -3,10 +3,8 @@ name: Deploy Frontend to AWS ECS
 on:
   push:
     branches: [ main ]
-    paths: [ 'tm-frontend/**' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'tm-frontend/**' ]
 
 env:
   AWS_REGION: eu-north-1
